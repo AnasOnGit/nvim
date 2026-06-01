@@ -6,7 +6,9 @@ vim.pack.add({
     "https://github.com/neovim/nvim-lspconfig",
     "https://github.com/mason-org/mason.nvim",
     "https://github.com/tpope/vim-fugitive",
-     { src = "https://github.com/catppuccin/nvim", name = "catppuccin" }
+    { src = "https://github.com/catppuccin/nvim", name = "catppuccin" },
+    "https://github.com/nvim-lua/plenary.nvim",
+    "https://github.com/max397574/startup.nvim",
 })
 
 -- mini files ----
@@ -91,3 +93,77 @@ MiniDiff.setup({
 
 vim.keymap.set("n", "<leader>gg", "<cmd>tabnew | Git | only<cr>", { desc = "Fugitive Full Page New Tab" })
 vim.keymap.set("n", "<leader>gd", "<cmd>Gvdiffsplit<CR>", { desc = "Git diff split", })
+
+--- startup screen ---
+require("startup").setup({
+    header = {
+        type = "text",
+        align = "center",
+        fold_section = false,
+        title = "Header",
+        margin = 0,
+content = {
+            "          .  .                    ",
+            "          |\\_|\\                   ",
+            "          | a_a\\                  ",
+            "          | | \"]                  ",
+            "      ____| '-\\___                ",
+            "     /.----.___.-'\\               ",
+            "    //        _    \\              ",
+            "   //   .-. (~v~) /|              ",
+            "  |'|  /\\:  .--  / \\             ",
+            " // |-/  \\_/____/\\/~|             ",
+            "|/  \\ |  []_|_|_] \\ |            ",
+            "| \\  | \\ |___   _\\ ]_}           ",
+            "| |  '-' /   '.'  |               ",
+            "| |     /    /|:  |               ",
+            "| |     |   / |:  /\\              ",
+            "| |     /  /  |  /  \\             ",
+            "| |    |  /  /  |    \\            ",
+            "\\ |    |/\\/  |/|/\\    \\          ",
+            " \\|\\ |\\|  |  | / /\\/\\__\\        ",
+            "  \\ \\| | /   | |__               ",
+            "snd    / |   |____)               ",
+            "       |_/                        ",
+        },
+        highlight = "Statement",
+        default_color = "",
+        oldfiles_amount = 0,
+    },
+    body = {
+        type = "mapping",
+        align = "center",
+        fold_section = false,
+        title = "Commands",
+        -- margin = 5,
+        content = {
+            { " Find File",    "lua MiniPick.builtin.files()",                   "<leader>pf" },
+            { " Recent Files", "lua require('mini.extra').pickers.oldfiles()",   "<leader>pr" },
+            { " Grep",         "lua MiniPick.builtin.grep({})",                  "<leader>ps" },
+            { " New File",     "enew",                                            "e" },
+            { " Quit",         "quit",                                            "q" },
+        },
+        highlight = "String",
+        default_color = "",
+        oldfiles_amount = 0,
+    },
+    options = {
+        mapping_keys = true,
+        cursor_column = 0.5,
+        empty_lines_between_mappings = true,
+        disable_statuslines = true,
+        paddings = { 1, 1 },
+    },
+    mappings = {
+        execute_command = "<CR>",
+        open_file = "o",
+        open_file_split = "<c-o>",
+        open_section = "<TAB>",
+        open_help = "?",
+    },
+    colors = {
+        background = "#1f2227",
+        folded_section = "#56b6c2",
+    },
+    parts = { "header", "body" },
+})
