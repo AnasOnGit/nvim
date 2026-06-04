@@ -28,11 +28,17 @@ vim.opt.completeopt = "menuone,noselect,fuzzy,nosort"
 vim.opt.shortmess:append("c")
 vim.opt.clipboard:append("unnamedplus")
 vim.opt.isfname:append("@-@")
-vim.opt.guicursor = ""
+-- vim.opt.guicursor = ""
 vim.opt.scrolloff = 8
 
 vim.opt.colorcolumn = "0"
 vim.opt.signcolumn = "yes"
+
+-- folding (nvim-ufo)
+vim.opt.foldcolumn = "1"
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+vim.opt.foldenable = true
 
 vim.api.nvim_create_autocmd("TextYankPost", {
     desc = "Highlight when yanking (copying) text",
@@ -40,3 +46,4 @@ vim.api.nvim_create_autocmd("TextYankPost", {
         vim.hl.on_yank()
     end,
 })
+
