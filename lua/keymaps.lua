@@ -20,6 +20,15 @@ vim.keymap.set("n", "<leader>X", "<cmd>!chmod +x %<CR>", { silent = true, desc =
 
 vim.keymap.set("n", "<leader>re", "<cmd>restart<cr>", { desc = "Restart config :restart)" })
 
+-- grep selected text across project with telescope
+vim.keymap.set("v", "<leader>sw", function()
+    local saved = vim.fn.getreg("v")
+    vim.cmd('noau normal! "vy"')
+    local selection = vim.fn.getreg("v")
+    vim.fn.setreg("v", saved)
+    require("telescope.builtin").grep_string({ search = selection })
+end, { desc = "[S]earch selected [W]ord" })
+
 -- native undotree
 vim.keymap.set("n", "<leader>u", function()
     vim.cmd.packadd("nvim.undotree")

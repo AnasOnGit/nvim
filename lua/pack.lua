@@ -1,55 +1,64 @@
 vim.pack.add({
-    "https://github.com/bluz71/vim-moonfly-colors",
-    "https://github.com/nvim-mini/mini.nvim",
-    "https://github.com/rafamadriz/friendly-snippets",
-    { src = "https://github.com/nvim-treesitter/nvim-treesitter", branch = "main" },
-    "https://github.com/neovim/nvim-lspconfig",
-    "https://github.com/mason-org/mason.nvim",
-    "https://github.com/tpope/vim-fugitive",
-    { src = "https://github.com/catppuccin/nvim", name = "catppuccin" },
-    "https://github.com/nvim-lua/plenary.nvim",
-    "https://github.com/max397574/startup.nvim",
-    "https://github.com/karb94/neoscroll.nvim",
-     "https://github.com/lewis6991/gitsigns.nvim",
+	"https://github.com/bluz71/vim-moonfly-colors",
+	"https://github.com/nvim-mini/mini.nvim",
+	"https://github.com/rafamadriz/friendly-snippets",
+	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", branch = "main" },
+	"https://github.com/neovim/nvim-lspconfig",
+	"https://github.com/mason-org/mason.nvim",
+	"https://github.com/tpope/vim-fugitive",
+	{ src = "https://github.com/catppuccin/nvim", name = "catppuccin" },
+	"https://github.com/nvim-lua/plenary.nvim",
+	"https://github.com/max397574/startup.nvim",
+	"https://github.com/karb94/neoscroll.nvim",
+	"https://github.com/lewis6991/gitsigns.nvim",
 	"https://github.com/sindrets/diffview.nvim",
-    "https://github.com/kevinhwang91/promise-async",
-    "https://github.com/kevinhwang91/nvim-ufo",
-    { src = 'https://github.com/nvim-mini/mini.pairs', version = 'stable' },
-    "https://github.com/nvim-lua/plenary.nvim",
-    "https://github.com/hrsh7th/nvim-cmp",
-    "https://github.com/Exafunction/windsurf.nvim",
+	"https://github.com/kevinhwang91/promise-async",
+	"https://github.com/kevinhwang91/nvim-ufo",
+	{ src = "https://github.com/nvim-mini/mini.pairs", version = "stable" },
+	"https://github.com/nvim-lua/plenary.nvim",
+	"https://github.com/hrsh7th/nvim-cmp",
+	"https://github.com/Exafunction/windsurf.nvim",
+	"https://github.com/stevearc/conform.nvim",
+	"https://github.com/MunifTanjim/nui.nvim",
+	"https://github.com/rcarriga/nvim-notify",
+	"https://github.com/folke/noice.nvim",
+	{ src = "https://github.com/nvim-telescope/telescope.nvim", branch = "0.1.x" },
+	{ src = "https://github.com/nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+	"https://github.com/nvim-telescope/telescope-ui-select.nvim",
+	"https://github.com/nvim-tree/nvim-web-devicons",
+	"https://github.com/folke/todo-comments.nvim",
 })
 
 -- mini files ----
 local MiniFiles = require("mini.files")
 MiniFiles.setup(
---     mappings = {
---         go_in = "<CR>",
---         go_in_plus = "L",
---         go_out = "_",
---         go_out_plus = "H",
---     },
+	--     mappings = {
+	--         go_in = "<CR>",
+	--         go_in_plus = "L",
+	--         go_out = "_",
+	--         go_out_plus = "H",
+	--     },
 )
 
 vim.keymap.set("n", "-", "<cmd>lua MiniFiles.open()<CR>", { desc = "Toggle mini file explorer" })
 vim.keymap.set("n", "<leader>-", function()
-    MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
-    MiniFiles.reveal_cwd()
+	MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
+	MiniFiles.reveal_cwd()
 end, { desc = "Toggle into currently opened file" })
 
 ---- mini notify ----
 require("mini.notify").setup({
 	-- only show messages
-    content = {
-        format = function(notif)
-            return notif.msg
-        end,
-    },
+	content = {
+		format = function(notif)
+			return notif.msg
+		end,
+	},
 })
 
 --- mini cmdline completion ---
 require("mini.cmdline").setup({
-    autocorrect = { enable = false }
+	autocorrect = { enable = false },
 })
 
 --- mini surround ---
@@ -71,26 +80,36 @@ MiniPick.setup()
 MiniExtra.setup()
 
 -- keymaps
-vim.keymap.set("n", "<leader>pf", function() MiniPick.builtin.files() end, { desc = "Mini File Picker" })
-vim.keymap.set("n", "<leader>ps", function() MiniPick.builtin.grep({ pattern = vim.fn.expand("<cword>") }) end, { desc = "Grep word/Search word" })
-vim.keymap.set("n", "<leader>vh", function() MiniPick.builtin.help() end, { desc = "Mini Help" })
+vim.keymap.set("n", "<leader>pf", function()
+	MiniPick.builtin.files()
+end, { desc = "Mini File Picker" })
+vim.keymap.set("n", "<leader>ps", function()
+	MiniPick.builtin.grep({ pattern = vim.fn.expand("<cword>") })
+end, { desc = "Grep word/Search word" })
+vim.keymap.set("n", "<leader>vh", function()
+	MiniPick.builtin.help()
+end, { desc = "Mini Help" })
 
-vim.keymap.set("n", "<leader>xx", function() MiniExtra.pickers.diagnostic() end, { desc = "Mini Picker Diagnostics" })
-vim.keymap.set("n", "<leader>pk", function() MiniExtra.pickers.keymaps() end, { desc = 'Search keymaps' })
+vim.keymap.set("n", "<leader>xx", function()
+	MiniExtra.pickers.diagnostic()
+end, { desc = "Mini Picker Diagnostics" })
+vim.keymap.set("n", "<leader>pk", function()
+	MiniExtra.pickers.keymaps()
+end, { desc = "Search keymaps" })
 
---- mini completions --- 
+--- mini completions ---
 require("mini.completion").setup({
-    lsp_completion = {
-        auto_setup = true,
-    }
+	lsp_completion = {
+		auto_setup = true,
+	},
 })
 
 --- mini snippets ---
 local MiniSnippets = require("mini.snippets")
 MiniSnippets.setup({
-    snippets = {
-        MiniSnippets.gen_loader.from_lang(), -- loads friendly-snippets
-    },
+	snippets = {
+		MiniSnippets.gen_loader.from_lang(), -- loads friendly-snippets
+	},
 })
 MiniSnippets.start_lsp_server({ match = false })
 
@@ -101,106 +120,110 @@ MiniDiff.setup({
 })
 
 vim.keymap.set("n", "<leader>gg", "<cmd>tabnew | Git | only<cr>", { desc = "Fugitive Full Page New Tab" })
-vim.keymap.set("n", "<leader>gd", "<cmd>Gvdiffsplit<CR>", { desc = "Git diff split", })
+vim.keymap.set("n", "<leader>gd", "<cmd>Gvdiffsplit<CR>", { desc = "Git diff split" })
 
 -- newscroll --
-require('neoscroll').setup({
-  mappings = {
-    -- Keys to be mapped to their corresponding default scrolling animation
-    '<C-u>', '<C-d>',
-    '<C-b>', '<C-f>',
-    '<C-y>', '<C-e>',
-    'zt', 'zz', 'zb',
-  },
-  hide_cursor = true,          -- Hide cursor while scrolling
-  stop_eof = true,             -- Stop at <EOF> when scrolling downwards
-  respect_scrolloff = false,   -- Stop scrolling when the cursor reaches the scrolloff margin of the file
-  cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
-  duration_multiplier = 1.0,   -- Global duration multiplier
-  easing = 'linear',           -- Default easing function
-  pre_hook = nil,              -- Function to run before the scrolling animation starts
-  post_hook = nil,             -- Function to run after the scrolling animation ends
-  performance_mode = false,    -- Disable "Performance Mode" on all buffers.
-  ignored_events = {           -- Events ignored while scrolling
-      'WinScrolled', 'CursorMoved'
-  },
+require("neoscroll").setup({
+	mappings = {
+		-- Keys to be mapped to their corresponding default scrolling animation
+		"<C-u>",
+		"<C-d>",
+		"<C-b>",
+		"<C-f>",
+		"<C-y>",
+		"<C-e>",
+		"zt",
+		"zz",
+		"zb",
+	},
+	hide_cursor = true, -- Hide cursor while scrolling
+	stop_eof = true, -- Stop at <EOF> when scrolling downwards
+	respect_scrolloff = false, -- Stop scrolling when the cursor reaches the scrolloff margin of the file
+	cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
+	duration_multiplier = 1.0, -- Global duration multiplier
+	easing = "linear", -- Default easing function
+	pre_hook = nil, -- Function to run before the scrolling animation starts
+	post_hook = nil, -- Function to run after the scrolling animation ends
+	performance_mode = false, -- Disable "Performance Mode" on all buffers.
+	ignored_events = { -- Events ignored while scrolling
+		"WinScrolled",
+		"CursorMoved",
+	},
 })
 
 --- startup screen ---
 require("startup").setup({
-    header = {
-        type = "text",
-        align = "center",
-        fold_section = false,
-        title = "Header",
-        margin = 0,
-content = {
-            "          .  .                    ",
-            "          |\\_|\\                   ",
-            "          | a_a\\                  ",
-            "          | | \"]                  ",
-            "      ____| '-\\___                ",
-            "     /.----.___.-'\\               ",
-            "    //        _    \\              ",
-            "   //   .-. (~v~) /|              ",
-            "  |'|  /\\:  .--  / \\             ",
-            " // |-/  \\_/____/\\/~|             ",
-            "|/  \\ |  []_|_|_] \\ |            ",
-            "| \\  | \\ |___   _\\ ]_}           ",
-            "| |  '-' /   '.'  |               ",
-            "| |     /    /|:  |               ",
-            "| |     |   / |:  /\\              ",
-            "| |     /  /  |  /  \\             ",
-            "| |    |  /  /  |    \\            ",
-            "\\ |    |/\\/  |/|/\\    \\          ",
-            " \\|\\ |\\|  |  | / /\\/\\__\\        ",
-            "  \\ \\| | /   | |__               ",
-            "snd    / |   |____)               ",
-            "       |_/                        ",
-        },
-        highlight = "Statement",
-        default_color = "",
-        oldfiles_amount = 0,
-    },
-    body = {
-        type = "mapping",
-        align = "center",
-        fold_section = false,
-        title = "Commands",
-        -- margin = 5,
-        content = {
-            { " Find File",    "lua MiniPick.builtin.files()",                   "<leader>pf" },
-            { " Recent Files", "lua require('mini.extra').pickers.oldfiles()",   "<leader>pr" },
-            { " Grep",         "lua MiniPick.builtin.grep({})",                  "<leader>ps" },
-            { " New File",     "enew",                                            "e" },
-            { " Quit",         "quit",                                            "q" },
-        },
-        highlight = "String",
-        default_color = "",
-        oldfiles_amount = 0,
-    },
-    options = {
-        mapping_keys = true,
-        cursor_column = 0.5,
-        empty_lines_between_mappings = true,
-        disable_statuslines = true,
-        paddings = { 1, 1 },
-    },
-    mappings = {
-        execute_command = "<CR>",
-        open_file = "o",
-        open_file_split = "<c-o>",
-        open_section = "<TAB>",
-        open_help = "?",
-    },
-    colors = {
-        background = "#1f2227",
-        folded_section = "#56b6c2",
-    },
-    parts = { "header", "body" },
+	header = {
+		type = "text",
+		align = "center",
+		fold_section = false,
+		title = "Header",
+		margin = 0,
+		content = {
+			"          .  .                    ",
+			"          |\\_|\\                   ",
+			"          | a_a\\                  ",
+			'          | | "]                  ',
+			"      ____| '-\\___                ",
+			"     /.----.___.-'\\               ",
+			"    //        _    \\              ",
+			"   //   .-. (~v~) /|              ",
+			"  |'|  /\\:  .--  / \\             ",
+			" // |-/  \\_/____/\\/~|             ",
+			"|/  \\ |  []_|_|_] \\ |            ",
+			"| \\  | \\ |___   _\\ ]_}           ",
+			"| |  '-' /   '.'  |               ",
+			"| |     /    /|:  |               ",
+			"| |     |   / |:  /\\              ",
+			"| |     /  /  |  /  \\             ",
+			"| |    |  /  /  |    \\            ",
+			"\\ |    |/\\/  |/|/\\    \\          ",
+			" \\|\\ |\\|  |  | / /\\/\\__\\        ",
+			"  \\ \\| | /   | |__               ",
+			"snd    / |   |____)               ",
+			"       |_/                        ",
+		},
+		highlight = "Statement",
+		default_color = "",
+		oldfiles_amount = 0,
+	},
+	body = {
+		type = "mapping",
+		align = "center",
+		fold_section = false,
+		title = "Commands",
+		-- margin = 5,
+		content = {
+			{ " Find File", "lua MiniPick.builtin.files()", "<leader>pf" },
+			{ " Recent Files", "lua require('mini.extra').pickers.oldfiles()", "<leader>pr" },
+			{ " Grep", "lua MiniPick.builtin.grep({})", "<leader>ps" },
+			{ " New File", "enew", "e" },
+			{ " Quit", "quit", "q" },
+		},
+		highlight = "String",
+		default_color = "",
+		oldfiles_amount = 0,
+	},
+	options = {
+		mapping_keys = true,
+		cursor_column = 0.5,
+		empty_lines_between_mappings = true,
+		disable_statuslines = true,
+		paddings = { 1, 1 },
+	},
+	mappings = {
+		execute_command = "<CR>",
+		open_file = "o",
+		open_file_split = "<c-o>",
+		open_section = "<TAB>",
+		open_help = "?",
+	},
+	colors = {
+		background = "#1f2227",
+		folded_section = "#56b6c2",
+	},
+	parts = { "header", "body" },
 })
-
-
 
 -- Setup gitsigns.nvim
 require("gitsigns").setup({
@@ -438,13 +461,212 @@ vim.keymap.set("n", "<leader>g2", function()
 end, { desc = "Diff: Compare 2 files" })
 
 --- nvim-ufo (better folding) ---
-require('ufo').setup({
-    provider_selector = function(bufnr, filetype, buftype)
-        return { 'treesitter', 'indent' }
-    end,
+require("ufo").setup({
+	provider_selector = function(bufnr, filetype, buftype)
+		return { "treesitter", "indent" }
+	end,
 })
 
 -- mini-pairs
-require('mini.pairs').setup()
+require("mini.pairs").setup()
 -- windsurf
 require("codeium").setup()
+
+-- conform.nvim
+require("conform").setup({
+	notify_on_error = false,
+	format_on_save = function(bufnr)
+		local disable_filetypes = { c = true, cpp = true }
+		return {
+			timeout_ms = 500,
+			lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
+		}
+	end,
+	formatters_by_ft = {
+		lua = { "stylua" },
+		proto = { "buf" },
+		python = { "autopep8" },
+		go = { "gofumpt", "golines", "goimports-reviser" },
+		css = { "prettier" },
+		graphql = { "prettier" },
+		html = { "prettier" },
+		javascript = { "prettier" },
+		javascriptreact = { "prettier" },
+		json = { "prettier" },
+		less = { "prettier" },
+		markdown = { "prettier" },
+		scss = { "prettier" },
+		typescript = { "prettier" },
+		typescriptreact = { "prettier" },
+		yaml = { "prettier" },
+	},
+	formatters = {
+		prettier = {
+			command = "prettier",
+			prepend_args = function(ctx)
+				local root_dir = vim.fn.getcwd()
+				local prettier_config = vim.fn.glob(root_dir .. "/.prettierrc*")
+				if prettier_config ~= "" then
+					return { "--config", prettier_config }
+				else
+					return {
+						"--arrow-parens=always",
+						"--bracket-spacing",
+						"--end-of-line=lf",
+						"--html-whitespace-sensitivity=css",
+						"--insert-pragma=false",
+						"--single-attribute-per-line=false",
+						"--bracket-same-line=false",
+						"--jsx-bracket-same-line=false",
+						"--jsx-single-quote=false",
+						"--print-width=80",
+						"--prose-wrap=preserve",
+						"--quote-props=as-needed",
+						"--require-pragma=false",
+						"--no-semi=false",
+						"--single-quote=false",
+						"--tab-width=2",
+						"--trailing-comma=es5",
+						"--use-tabs",
+						"--embedded-language-formatting=auto",
+						"--vue-indent-script-and-style=false",
+					}
+				end
+			end,
+		},
+		autopep8 = {
+			prepend_args = {
+				"--max-line-length=120",
+				"--experimental",
+			},
+		},
+		golines = {
+			prepend_args = {
+				"--max-len=120",
+			},
+		},
+	},
+})
+
+vim.keymap.set("", "<leader>f", function()
+	require("conform").format({ async = true, lsp_fallback = true })
+end, { desc = "[F]ormat buffer" })
+
+-- nvim-notify (must be setup before noice)
+require("notify").setup({
+	timeout = 1000,
+	max_width = 60,
+	max_height = 10,
+	level = vim.log.levels.TRACE,
+	render = "minimal",
+	stages = "fade",
+	background_colour = "FloatShadow",
+})
+
+-- noice.nvim
+require("noice").setup({
+	lsp = {
+		progress = { enabled = false },
+		override = {
+			["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+			["vim.lsp.util.stylize_markdown"] = true,
+			["cmp.entry.get_documentation"] = true,
+		},
+	},
+	presets = {
+		bottom_search = true,
+		command_palette = true,
+		long_message_to_split = false,
+		inc_rename = false,
+		lsp_doc_border = true,
+	},
+	messages = {
+		enabled = true,
+		view = "notify",
+		view_error = "notify",
+		view_warn = "notify",
+		view_history = "messages",
+		view_search = "virtualtext",
+	},
+	views = {
+		cmdline_popup = {
+			position = {
+				row = "50%",
+				col = "50%",
+			},
+		},
+	},
+})
+
+-- telescope
+require("telescope").setup({
+	defaults = {
+		layout_strategy = "horizontal",
+		layout_config = {
+			horizontal = {
+				width = 0.9,
+				height = 0.85,
+				preview_width = 0.55,
+				preview_cutoff = 0,
+			},
+		},
+		preview = {
+			treesitter = true,
+		},
+	},
+	pickers = {
+		live_grep = {
+			file_ignore_patterns = { "node_modules", ".git/", ".venv", "static/", "staticfiles/", "dist/", "www/" },
+			no_ignore = true,
+			hidden = true,
+		},
+		find_files = {
+			file_ignore_patterns = { "node_modules", ".git/", ".venv", "static/", "staticfiles/", "dist/", "www/" },
+			hidden = true,
+			no_ignore = true,
+		},
+	},
+	extensions = {
+		["ui-select"] = {
+			require("telescope.themes").get_dropdown(),
+		},
+	},
+})
+
+pcall(require("telescope").load_extension, "fzf")
+pcall(require("telescope").load_extension, "ui-select")
+pcall(require("telescope").load_extension, "harpoon")
+
+local builtin = require("telescope.builtin")
+vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
+vim.keymap.set("n", "<leader>sk", builtin.keymaps, { desc = "[S]earch [K]eymaps" })
+vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles" })
+vim.keymap.set("n", "<C-p>", builtin.git_files, { desc = "Search Git Files" })
+vim.keymap.set("n", "<leader>ss", builtin.builtin, { desc = "[S]earch [S]elect Telescope" })
+vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })
+vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
+vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
+vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
+vim.keymap.set("n", "<leader>s.", builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
+vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
+vim.keymap.set("n", "<leader>sm", ":Telescope harpoon marks<CR>", { desc = "[S]earch harpoon [M]arks" })
+vim.keymap.set("n", "<tab>", ":cnext<CR>", { desc = "Go to next qlist item" })
+vim.keymap.set("n", "<A-tab>", ":cprev<CR>", { desc = "Go to previous qlist item" })
+vim.keymap.set("n", "<leader>/", function()
+	builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
+		winblend = 10,
+		previewer = false,
+	}))
+end, { desc = "[/] Fuzzily search in current buffer" })
+vim.keymap.set("n", "<leader>s/", function()
+	builtin.live_grep({
+		grep_open_files = true,
+		prompt_title = "Live Grep in Open Files",
+	})
+end, { desc = "[S]earch [/] in Open Files" })
+vim.keymap.set("n", "<leader>sn", function()
+	builtin.find_files({ cwd = vim.fn.stdpath("config") })
+end, { desc = "[S]earch [N]eovim files" })
+
+-- todo-comments
+require("todo-comments").setup({ signs = true })
