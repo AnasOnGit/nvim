@@ -33,6 +33,20 @@ vim.keymap.set("n", "<A-CR>", "o<Esc>", {
 })
 
 -- Shift + Enter -> new line above current line
-vim.keymap.set("n", "<SA-CR>", "O<Esc>", {
+vim.keymap.set("n", "<S-CR>", "O<Esc>", {
     desc = "Insert line above"
 })
+-- Scroll up ctrl + s
+vim.keymap.set("n", "<C-s>", "<C-u>", { desc = "Scroll up" })
+
+-- nvim-ufo folding
+-- vim.keymap.set("n", "zR", require("ufo").openAllFolds, { desc = "Open all folds" })
+-- vim.keymap.set("n", "zM", require("ufo").closeAllFolds, { desc = "Close all folds" })
+-- vim.keymap.set("n", "zr", require("ufo").openFoldsExceptKinds, { desc = "Open folds except kinds" })
+-- vim.keymap.set("n", "zm", require("ufo").closeFoldsWith, { desc = "Close folds with level" })
+-- vim.keymap.set("n", "K", function()
+--     local winid = require("ufo").peekFoldedLinesUnderCursor()
+--     if not winid then
+--         vim.lsp.buf.hover()
+--     end
+-- end, { desc = "Peek fold / LSP hover" })

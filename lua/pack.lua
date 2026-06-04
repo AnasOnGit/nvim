@@ -12,6 +12,12 @@ vim.pack.add({
     "https://github.com/karb94/neoscroll.nvim",
      "https://github.com/lewis6991/gitsigns.nvim",
 	"https://github.com/sindrets/diffview.nvim",
+    "https://github.com/kevinhwang91/promise-async",
+    "https://github.com/kevinhwang91/nvim-ufo",
+    { src = 'https://github.com/nvim-mini/mini.pairs', version = 'stable' },
+    "https://github.com/nvim-lua/plenary.nvim",
+    "https://github.com/hrsh7th/nvim-cmp",
+    "https://github.com/Exafunction/windsurf.nvim",
 })
 
 -- mini files ----
@@ -99,7 +105,8 @@ vim.keymap.set("n", "<leader>gd", "<cmd>Gvdiffsplit<CR>", { desc = "Git diff spl
 
 -- newscroll --
 require('neoscroll').setup({
-  mappings = {                 -- Keys to be mapped to their corresponding default scrolling animation
+  mappings = {
+    -- Keys to be mapped to their corresponding default scrolling animation
     '<C-u>', '<C-d>',
     '<C-b>', '<C-f>',
     '<C-y>', '<C-e>',
@@ -429,3 +436,15 @@ vim.keymap.set("n", "<leader>g2", function()
 		end)
 	end)
 end, { desc = "Diff: Compare 2 files" })
+
+--- nvim-ufo (better folding) ---
+require('ufo').setup({
+    provider_selector = function(bufnr, filetype, buftype)
+        return { 'treesitter', 'indent' }
+    end,
+})
+
+-- mini-pairs
+require('mini.pairs').setup()
+-- windsurf
+require("codeium").setup()

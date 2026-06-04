@@ -34,6 +34,12 @@ vim.opt.scrolloff = 8
 vim.opt.colorcolumn = "0"
 vim.opt.signcolumn = "yes"
 
+-- folding (nvim-ufo)
+vim.opt.foldcolumn = "1"
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+vim.opt.foldenable = true
+
 vim.api.nvim_create_autocmd("TextYankPost", {
     desc = "Highlight when yanking (copying) text",
     callback = function()
